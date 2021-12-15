@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}
+  Nəticə
+{% endblock title %}
+{% block body %}
+  
+<div class="">
+
+    <form class="form-result" method="POST">
+        <h4>Nəticələr</h4>
+        <hr>
+        <h5 class="card-title">Aldığınız Xal: {{score}}</h5>
+        <h5><p class="card-text">Düzgün cavabların sayı:<strong> {{correct}}</strong></p></h5><br>
+        <h5><p class="card-text">Səhv cavabların sayı: <strong>{{wrong}}</strong></p></h5><br>
+        
+        {% if wrong >= 1 %}
+          
+        <p class="card-text">Səhv cavab verilən suallar:  <strong>{{list}}</strong></p></h5>
+        {% endif %}
+
+        
+        
+        <hr><br><br><br>
+
+        <p> Qırmızı rəng: <span class="label-danger">Sizin cavab</span></p>
+        <p> Yaşıl rəng: <span class="label-info">Doğru cavab</span></p>
+
+        <h5><p class="card-text">Ümumi sual: 20</p></h5>
+            
+
+    </form>
+
+    {% if wrong_questions %}
+      
+    <form class="form-myquiz" method="POST">
+      {% csrf_token %}
+      <h2 class="form-signin-heading">Səhv cavab verilən suallar</h2>  
+      <hr> <br>
+
+    {% for q,answer in  all %}
+
+    
+        <div class="form-group">
+            <h5><label for="question">{{q.id}}.  {{q.name}}</label></h5>
+        </div>             
+        <div class="form-check">
+                <div class="form-check">
+                   <span {% if q.a == q.answer %}
+                   class="label-info"
+                   {% endif %} 
+
+                   {% if q.a == answer %}
+                   class="label-danger"
+                   {% endif %}
+                    >
+                   
+                   A) <label class="form-check-label" >
+                        {{q.a}}
+                    </label></span> 
+                </div>
+
+                <div class="form-check">
+                    <span {% if q.b == q.answer %}
+                    class="label-info"
+                    {% endif %} 
+                    {% if q.b == answer %}
+                    class="label-danger"
+                    {% endif %}   >
+
+                    B)  <label class="form-check-label" >
+                        {{q.b}}
+                    </label></span>
+                </div>
+
+                <div class="form-check">
+                    <span {% if q.c == q.answer %}
+                    class="label-info"
+                    {% endif %} 
+                    
+                    {% if q.c == answer %}
+                    class="label-danger"
+                    {% endif %} >
+
+                    C)  <label class="form-check-label" >
+                        {{q.c}}
+                    </label></span>
+                </div>
+                
+                <div class="form-check">
+                    <span {% if q.d == q.answer %}
+                    class="label-info"
+                    {% endif %} 
+
+                    {% if q.d == answer %}
+                    class="label-danger"
+                    {% endif %} 
+                    >
+                    D)  <label class="form-check-label" >
+                        {{q.d}}
+                    </label></span>
+            
+                </div>
+                <hr>
+                Sizin cavab: {{answer}}
+
+        </div>
+
+        <hr>
+
+      {% endfor %}
+      
+
+      <a href = "{% url 'pages:quiz' %}" class="btn btn-primary">Geri Qayıt</a>
+
+    </form>
+
+    {% endif %}
+
+
+  </div>
+{% endblock body %}

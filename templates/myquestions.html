@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+  Mənim suallarım
+{% endblock title %}
+{% block body %}
+<div class="container">
+    <form method="POST" class="form-myquiz">
+      {% csrf_token %}
+      <h1 class="form-signin-heading">Mənim suallarım</h1>
+      <hr><br>
+      <table class="table">
+        {% if questions %}
+
+        <h3>Sizin hal hazırda əlavə edilmiş {{questions.count}} sualınız var</h3>
+        {% endif %}
+
+
+        <thead>
+          <tr>
+            <th scope="col">İD</th>
+            <th scope="col">Sual</th>
+            <th scope="col">Yenilə</th>
+            <th scope="col">Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% if questions %}
+            {% for quest in questions  %}
+              
+            
+          <tr>
+            <th scope="row">{{quest.id}}</th>
+            <td>{{quest.name}}</td>
+            <td><a href = "{% url 'pages:updatequiz' quest.id %}" class="btn btn-primary">Yenilə</a></td>
+            <td><a href ="{% url 'pages:deletequiz' quest.id %}" class="btn btn-danger">Sil</a></td>
+          </tr>
+          {% endfor %}
+          {% else %}
+
+          <h3>Siz heç bir sual əlavə etməmisininiz</h3>
+          <a  href = "{% url 'pages:addquiz' %}"class="btn btn-info">Sual əlavə et</a>
+
+          {% endif %}
+
+        </tbody>
+        <hr>
+      </table>
+
+    </form>
+  </div>
+{% endblock body %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}
+Nəticələrim|Arxiv
+{% endblock title %}
+{% block body %}
+<div class="container">
+    <form method="POST" class="form-myquiz">
+      {% csrf_token %}
+      <h1 class="form-signin-heading">Köhnə Nəticələrim</h1>
+      <hr><br>
+      <table class="table">
+        {% if results %}
+
+        <h3>Sizin indiyə qədər {{results.count}} imtahan vermisiniz</h3>
+        {% endif %}
+
+
+        <thead>
+          <tr>
+            <th scope="col">Aldığınız Xal</th>
+            <th scope="col">Düzgün cavablar</th>
+            <th scope="col">Səhv cavablar</th>
+            <th scope="col">Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% if results %}
+            {% for result in results  %}
+              
+            
+          <tr>
+            <td>{{result.score}}</td>
+            <td>{{result.correct}}</td>
+            <td>{{result.wrong}}</td>
+
+            <td><a href ="{% url 'pages:deleteresult' result.id %}" class="btn btn-danger">Sil</a></td>
+          </tr>
+          {% endfor %}
+          {% else %}
+
+          <h3>Siz heç bir imtahan verməmisiniz</h3>
+          <a  href = "{% url 'pages:quiz' %}"class="btn btn-info">İmtahan ver</a>
+
+          {% endif %}
+
+        </tbody>
+        <hr>
+      </table>
+
+    </form>
+  </div>
+{% endblock body %}

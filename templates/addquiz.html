@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+  Sual Əlavə etmək
+{% endblock title %}
+{% block body %}
+<div class="">
+    <form class="form-wraddquest" method="POST">
+      {% csrf_token %}
+      <h2 class="form-signin-heading">Sual əlavə etmək.</h2>
+      <hr>
+      {{ form.as_p}}
+      <br> <br>
+      <button type="submit" class="btn btn-danger">Əlavə et</button>
+    </form>
+  </div>
+{% endblock body %}

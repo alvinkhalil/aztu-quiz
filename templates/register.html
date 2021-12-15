@@ -1,0 +1,22 @@
+{% include "base.html" %}
+{% block title %}
+{% endblock title %}
+{% block body %}
+<div class="">
+    <form class="form-signin" method="POST">
+      {% csrf_token %}
+      <h2 class="form-signin-heading">İmtahan vermək üçün Qeydiyyatdan keçməyiniz gərəkir.</h2>
+      <input type="text" class="form-control" name="name" placeholder="Ad Soyad" required />
+      <input type="text" class="form-control" name="username" placeholder="İstifadəçi adı" required />
+      <input type="text" class="form-control" name="email" placeholder="Elektron Poçt" required />
+      <input type="password" class="form-control" name="password" placeholder="Şifrə" required />
+      <input type="password" class="form-control" name="password2" placeholder="Şifrənin təsdiqi" required />
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Qeydiyyatdan keç</button>
+      <hr>
+      Hesabınız var?
+      <a href="{% url 'pages:index' %}" class="btn btn-danger">Daxil Ol</a>
+
+    </form>
+  </div>
+{% endblock body %}
